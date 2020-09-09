@@ -33,3 +33,7 @@ node_modules
 .vscode
 yarn.lock*
 ~~~
+##### Testando git-commit-msg-linter
+~~~
+git commit -m "add test README"
+~~~
