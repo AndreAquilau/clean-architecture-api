@@ -27,3 +27,9 @@ lib que irá garantir que os nos commits sigam os padrões recomendados.
 ~~~bash
 yarn add --dev git-commit-msg-linter
 ~~~
+##### .gitignore
+~~~
+node_modules
+.vscode
+yarn.lock*
+~~~
