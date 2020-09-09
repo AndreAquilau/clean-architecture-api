@@ -36,4 +36,21 @@ yarn.lock*
 ##### Testando git-commit-msg-linter
 ~~~
 git commit -m "add test README"
+
+--------- ERROR -------------------------------------------
+git commit -m "add test in readme"
+
+  ************* Invalid Git Commit Message **************
+  commit message: add test in readme
+  correct format: <type>(<scope>): <subject>
+  example: docs: update README add developer tips
 ~~~
+
+##### Install Typecript
+~~~bash
+yarn add -D typescript @types/node
+
+yarn tsc --init
+~~~
+
+[NODEJS SUPPORT VERSION node.green](https://node.green/)
