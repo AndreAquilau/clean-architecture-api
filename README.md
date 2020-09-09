@@ -1,5 +1,32 @@
 ### API completa com Typescript utilizando TDD, Clean Architecture, Design Patterns e SOLID.
 
+#### .editorconfig
+Install Plugin EditorConfig in Vscode.
+~~~editorconfig
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+end_of_line = lf
+~~~
+
+#### .vscode and settings.json
+~~~json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+~~~
+#### Init Project Node
+~~~bash
+yarn init -y or yarn init
+~~~
+
 #### Convencional Commits
 Padrões de texto nos commits.
 
@@ -25,7 +52,7 @@ Não colocar ponto final, não usar verbo no passado "added".
 ##### Add git-commit-msg-linter
 lib que irá garantir que os nos commits sigam os padrões recomendados.
 ~~~bash
-yarn add --dev git-commit-msg-linter
+  yarn add --dev git-commit-msg-linter
 ~~~
 ##### .gitignore
 ~~~
@@ -35,7 +62,7 @@ yarn.lock*
 ~~~
 ##### Testando git-commit-msg-linter
 ~~~
-git commit -m "add test README"
+  git commit -m "add test README"
 
 --------- ERROR -------------------------------------------
 git commit -m "add test in readme"
@@ -46,11 +73,136 @@ git commit -m "add test in readme"
   example: docs: update README add developer tips
 ~~~
 
-##### Install Typecript
+#### Install Typecript and tsconfig.json
 ~~~bash
-yarn add -D typescript @types/node
+  yarn add -D typescript @types/node ts-node-dev tsconfig-paths
 
-yarn tsc --init
+  yarn tsc --init
+~~~
+
+##### tsconfig.json
+~~~json
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["ES6"],
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "baseUrl": ".",
+    "paths": {
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@database/*": [
+        "./src/database/*"
+      ],
+      "@middleware/*": [
+        "./src/middleware/*"
+      ],
+      "@repository/*": [
+        "./src/repository/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ]
+    },
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
 ~~~
 
 [NODEJS SUPPORT VERSION node.green](https://node.green/)
+
+##### Script ts-node-dev.
+###### Flags
+  * --respawn -- finaliza todos os processos toda  vez que o servidor da um restart.
+  * --transpile-only -- ira so transpilar o arquivos sem check de tipagem, usamos o eslint pras verificações.
+  * --ignore-watch <filepath>  -- n~ao ira ficar manitorando o arquivo.
+  * --no-notify não ira ficar notificando toda vez que o servidor reiniciar.
+~~~json
+"dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignored-watch node_modules --no-notify ./src/services/server.ts",
+~~~
+
+
+#### Install Prettier and .prettierrc.js
+Install Plugin Prettier in Vscode.
+~~~bash
+  yarn add --dev prettier eslint-plugin-prettier eslint-config-prettier
+~~~
+
+##### .prettierrc.js
+~~~js
+module.exports = {
+  semi: true,
+  trailingComma: 'all',
+  singleQuote: true,
+  printWidth: 80,
+  tabWadth: 2,
+};
+~~~
+
+
+#### Install Eslint Standard Typescript
+Install Plugin Eslint in Vscode.
+~~~bash
+  yarn add --dev eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-airbnb-base eslint-plugin-import
+
+  yarn eslint --init
+~~~
+##### .eslintrc.js
+~~~js
+module.exports = {
+  env: {
+    es2017: true,
+    node: true,
+  },
+  extends: [
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:prettier/recommended',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    Shared: 'readonly',
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 11,
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint'],
+  rules: {
+    'class-methods-use-this': 'off',
+    'no-return-await': 'off',
+    'import/no-unresolved': 'off',
+    'no-console': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+};
+~~~
+##### .eslintignore
+~~~
+.vscode
+dist
+node_modules
+~~~
+
+
+
+
