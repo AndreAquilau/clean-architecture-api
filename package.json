@@ -5,6 +5,7 @@
   "author": "Andre Aquilau <Andre.Aquilau@outlook.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^26.0.13",
     "@types/node": "^14.6.4",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
@@ -15,14 +16,17 @@
     "eslint-plugin-prettier": "^3.1.4",
     "git-commit-msg-linter": "^2.6.0",
     "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "lint-staged": "^10.3.0",
     "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
     "ts-node-dev": "^1.0.0-pre.62",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.2"
   },
   "scripts": {
     "start": "node ./dist/services/server.js",
-    "dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignore-watch node_modules --no-notify ./src/services/server.ts"
+    "dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignore-watch node_modules --no-notify ./src/services/server.ts",
+    "test": "jest"
   }
 }

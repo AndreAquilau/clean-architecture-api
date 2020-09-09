@@ -231,9 +231,26 @@ yarn add --dev husky lint-staged
     "git add" //se consiguir corrigir sera adicionado a alteração feita
   ]
 }
-
 ~~~
+#### Install Jest
+Lib utilizada para realização de teste.
+~~~bash
+yarn add -D jest @types/jest ts-jest
 
+yarn jest --init
+~~~
+jest.config.js
+~~~js
+module.exports = {
+  roots: ['<rootDir>/src'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  coverageDirectory: 'coverage',
+  testEnvironment: 'node',
+  transform: {
+    '.+\\.ts$': 'ts-jest',
+  },
+};
+~~~
 
 
 
