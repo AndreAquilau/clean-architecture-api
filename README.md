@@ -8,7 +8,7 @@ Padrões de texto nos commits.
 ##### Tipos de commits
   * feat: quando é uma feature nova.
   * fix: quando é um bug fíxo.
-  * chore: quando adicionamos uma nova configuração setup, lib, class.
+  * chore: quando adicionamos uma nova configuração, setup, lib, class.
   * docs: criação ou mudança na documentação.
   * refactor: quando é feito alguma refatoração do código.
   * test: quando é feito alguma implementação de teste.
