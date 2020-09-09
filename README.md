@@ -314,5 +314,94 @@ module.exports = {
 }
 ~~~
 
+#### Install Typeorm, .env and ormconfig.js
+~~~bash
+yarn add typeorm pg reflect-metadata uuidv4 dotenv && yarn add -D @types/dotenv
+~~~
+.env
+~~~.env
+DATABASE_URL = postgres://postgres:root@localhost:5432/task
+TYPEORM_ENTITIES = src/models/**/*.ts
+TYPEORM_MIGRATIONS = src/database/migrations/**/*.ts
+TYPEORM_SUBESCRIBERS = src/subscribers/**/*.ts
+TYPEORM_ENTITIES_DIR = src/models
+TYPEORM_MIGRATIONS_DIR = src/database/migrations
+TYPEORM_SUBESCRIBERS_DIR = src/subscribers
+~~~
+ormconfig.js
+~~~js
+module.exports = {
+  type: 'postgres',
+  url: process.env.DATABASE_URL,
+  synchronize: false,
+  logging: false,
+  entities: [process.env.TYPEORM_ENTITIES || 'dist/models/**/*.js'],
+  migrations: [
+    process.env.TYPEORM_MIGRATIONS || 'dist/database/migrations/**/*.js',
+  ],
+  subcribers: [process.env.TYPEORM_SUBCRIBERS || 'dist/subcribers/**/*.js'],
+  cli: {
+    entitiesDir: process.env.TYPEORM_ENTITIES_DIR,
+    migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
+    subscribersDir: process.env.TYPEORM_SUBESCRIBERS_DIR,
+  },
+};
+~~~
+##### loader variable env.ts
+~~~
+...
+  |-- src
+    |-- config
+      |-- env.ts
+~~~
+env.ts
+~~~ts
+import { config } from 'dotenv';
+import { resolve } from 'path';
+
+config({
+  path: resolve(__dirname, '..', '..', '.env'),
+});
+~~~
+##### Create Connection
+~~~
+...
+  |-- src
+    |-- database
+      |-- index.ts
+~~~
+~~~ts
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+
+export default (async () => {
+  return createConnection();
+})();
+~~~
+##### Script typeorm
+~~~json
+"scripts": {
+     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ./ormconfig.js "
+}
+~~~
+##### CLI Typeorm
+~~~
+--rodar migrations
+yarn typeorm migration:run
+
+--criar uma migration
+yarn typeorm migration:create -- -n createUser
+
+--gerar migrations a partir das model
+yarn typeorm migration:generate -- -n createUser
+
+--reverte uma magration
+yarn typeorm migration:revert
+
+
+--criar uma model
+yarn typeorm entity:create -- -n User
+~~~
+
 
 
