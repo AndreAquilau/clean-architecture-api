@@ -134,7 +134,10 @@ git commit -m "add test in readme"
   * --ignore-watch <filepath>  -- n~ao ira ficar manitorando o arquivo.
   * --no-notify não ira ficar notificando toda vez que o servidor reiniciar.
 ~~~json
-"dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignored-watch node_modules --no-notify ./src/services/server.ts",
+"scripts" : {
+    "start": "node ./dist/services/server.js",
+    "dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignore-watch node_modules --no-notify ./src/services/server.ts",
+}
 ~~~
 
 
@@ -207,10 +210,9 @@ node_modules
 Hooks são comandos executados antes de executar os commits ou push.
 Com isso os arquivos que não estive nos padrões do eslint ou não passa nos teste não sera feito o commit ou push.
 [Repositório - Husky](https://github.com/typicode/husky)
+lint-staged -> permite que rodem nos arquivos que iram entrar no próximo commit "git add --all".
 ~~~bash
 yarn add --dev husky lint-staged
-
-// lint-staged -> permite que rodem nos arquivos que iram entrar no próximo commit "git add --all".
 ~~~
 .huskyrc.json
 ~~~js
@@ -250,6 +252,66 @@ module.exports = {
     '.+\\.ts$': 'ts-jest',
   },
 };
+~~~
+##### Test Script Jest
+~~~
+  "scripts": {
+    "test": "jest",
+    "test:staged": "jest",
+  }
+~~~
+
+
+#### Install Babel and babel.config.js
+~~~bash
+yarn add --dev bebel @babel/cli @babel/core @babel/node @babel/preset-end @babel/preset-typescript babel-plugin-module-resolver @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators
+~~~
+babel.config.js
+~~~js
+module.exports = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+    '@babel/preset-typescript',
+  ],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        alias: {
+          '@config': './src/config',
+          '@controllers': './src/controllers',
+          '@database': './src/database',
+          '@middleware': './src/middleware',
+          '@models': './src/models',
+          '@repository': './src/repository',
+          '@routes': './src/routes',
+          '@services': './src/services',
+        },
+      },
+    ],
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
+  ],
+  ignore: ['**/*.spec.ts'],
+};
+~~~
+##### Build Script Babel
+~~~js
+--extensions      = qual são os aquivos que seram compilados
+--out-dir        = diretorio de saída
+--copy-files     = copiar os arquivos e coloca na pasta de saída mesmo não sendo .js ou .ts, podendo ser html, etc...
+--no-copy-ignore = não copiar os arquivos que definimos no ignore: ['**/*.spec.ts'] do babel.config.js
+
+"scripts": {
+  "build": "babel src --extensions \".js,.ts\" --out-dir dist  --copy-files --no-copy-ignore"
+}
 ~~~
 
 
