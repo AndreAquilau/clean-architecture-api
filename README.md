@@ -203,6 +203,37 @@ dist
 node_modules
 ~~~
 
+#### Install Husky
+Hooks são comandos executados antes de executar os commits ou push.
+Com isso os arquivos que não estive nos padrões do eslint ou não passa nos teste não sera feito o commit ou push.
+[Repositório - Husky](https://github.com/typicode/husky)
+~~~bash
+yarn add --dev husky lint-staged
+
+// lint-staged -> permite que rodem nos arquivos que iram entrar no próximo commit "git add --all".
+~~~
+.huskyrc.json
+~~~js
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged", //sera rodado em todos os  arquivos passados no stagedrc.json
+      "pre-push": "yarn test"
+    }
+  }
+}
+~~~
+.lintstagedrc.json
+~~~js
+{
+  "*.ts": [
+    "eslint 'src/**' --fix", // "--fix" vai tentar corrigir o problema.
+    "git add" //se consiguir corrigir sera adicionado a alteração feita
+  ]
+}
+
+~~~
+
 
 
 
