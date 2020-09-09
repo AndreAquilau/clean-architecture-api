@@ -21,3 +21,9 @@ git commit -m "chore: add yarn"
 Não colocar letras maiúsculas nos commits, é sempre tudo minúsculo.
 Pode-se fazer referência a uma classe "chore: add LoginController", aí sim pode-se colocar classe com letras maiúscula.
 Não colocar ponto final, não usar verbo no passado "added".
+
+##### Add git-commit-msg-linter
+lib que irá garantir que os nos commits sigam os padrões recomendados.
+~~~bash
+yarn add --dev git-commit-msg-linter
+~~~
