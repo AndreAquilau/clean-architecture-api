@@ -229,8 +229,9 @@ yarn add --dev husky lint-staged
 ~~~js
 {
   "*.ts": [
-    "eslint 'src/**' --fix", // "--fix" vai tentar corrigir o problema.
-    "git add" //se consiguir corrigir sera adicionado a alteração feita
+    "eslint 'src/**' --fix",
+    "yarn test:staged",
+    "git add"
   ]
 }
 ~~~
