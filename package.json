@@ -36,8 +36,8 @@
   "scripts": {
     "start": "node ./dist/services/server.js",
     "dev": "ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignore-watch node_modules --no-notify ./src/services/server.ts",
-    "test": "jest",
-    "test:staged": "jest",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand \"--coverage\"",
+    "test:staged": "jest --passWithNoTests --silent --noStackTrace --runInBand \"--coverage\" ",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist  --copy-files --no-copy-ignored",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ./ormconfig.js "
   },

@@ -230,8 +230,7 @@ yarn add --dev husky lint-staged
 {
   "*.ts": [
     "eslint 'src/**' --fix",
-    "yarn test:staged",
-    "git add"
+    "yarn test:staged"
   ]
 }
 ~~~
@@ -246,19 +245,28 @@ jest.config.js
 ~~~js
 module.exports = {
   roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/main/**',
+    '!<rootDir>/src/**/*-protocols.ts',
+    '!**/protocols/**',
+    '!##/test/**',
+  ],
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest',
+  },
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1',
   },
 };
 ~~~
 ##### Test Script Jest
 ~~~
   "scripts": {
-    "test": "jest",
-    "test:staged": "jest",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand \"--coverage\"",
+    "test:staged": "jest --passWithNoTests --silent --noStackTrace --runInBand \"--coverage\" ",
   }
 ~~~
 
