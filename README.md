@@ -195,7 +195,13 @@ module.exports = {
     'no-return-await': 'off',
     'import/no-unresolved': 'off',
     'no-console': 'off',
+    'import/extensions': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'consistent-return': 'off',
   },
 };
 ~~~
