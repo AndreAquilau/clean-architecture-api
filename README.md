@@ -19,6 +19,10 @@ end_of_line = lf
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "typescript": "npx ts-node-dev --require tsconfig-paths/register --respawn --transpile-only  --ignore-watch node_modules --no-notify --files",
   }
 }
 ~~~
